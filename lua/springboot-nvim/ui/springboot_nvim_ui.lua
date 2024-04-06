@@ -134,7 +134,8 @@ local function create_generate_class_ui()
 
 end
 
-local function create_generate_interface_ui(bufnr)
+local function create_generate_interface_ui()
+    local bufnr = vim.api.nvim_get_current_buf()
     if components ~= nil then
         print('You cannot open multiple generate modals at a time')
         return
@@ -179,7 +180,8 @@ local function create_generate_interface_ui(bufnr)
 
 end
 
-local function create_generate_enum_ui(bufnr)
+local function create_generate_enum_ui()
+    local bufnr = vim.api.nvim_get_current_buf()
     if components ~= nil then
         print('You cannot open multiple generate modals at a time')
         return
