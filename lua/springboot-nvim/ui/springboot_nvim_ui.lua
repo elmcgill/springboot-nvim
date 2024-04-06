@@ -86,7 +86,10 @@ local function set_mappings(start_buf, bufs, type)
     end
 end
 
-local function create_generate_class_ui(bufnr)
+local function create_generate_class_ui()
+
+    local bufnr = vim.api.nvim_get_current_buf()
+
     if components ~= nil then
         print('You cannot open multiple generate modals at a time')
         return
