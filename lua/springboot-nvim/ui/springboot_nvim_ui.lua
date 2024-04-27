@@ -48,9 +48,7 @@ end
 
 local function set_mappings(start_buf, bufs, type)
     --api.nvim_buf_set_keymap(buf, 'n', '<cr>', ':lua require("springboot-nvim.generateclass").generate_class()<cr>', {nowait=true, noremap=true, silent=true})
-    print("setting keymaps")
     for _,b in pairs(bufs) do
-        print(b)
         api.nvim_buf_set_keymap(b, 'n', 'k', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_package()<cr>', {nowait=true, noremap=true, silent=true})
         if type == "class" then
             api.nvim_buf_set_keymap(b, 'n', 'j', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_class()<cr>', {nowait=true, noremap=true, silent=true})

@@ -101,10 +101,6 @@ local function fill_package_details()
     check_and_add_package()
 end
 
-local function foo()
-    print("java file opened")
-end
-
 -- key mapping
 
 -- auto commands

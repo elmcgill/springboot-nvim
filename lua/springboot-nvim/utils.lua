@@ -38,7 +38,7 @@ local function generate_java_file(buf, type, package_buf, class_buf)
     local class_input = vim.api.nvim_buf_get_lines(tonumber(class_buf), 0, -1, false)
     local class_text = table.concat(class_input)
     if(class_text ~= '') then
-        local dir = java_path(vim.fn.fnamemodify(buf, ':p'))
+        local dir = java_path(vim.api.nvim_buf_get_name(buf))
         -- Make sure the directory for the new file ends in a /
         local package_path = package_text:gsub("%.", "/")
         if(package_path:sub(-1, -1) ~= '/' and package_path ~= '') then
