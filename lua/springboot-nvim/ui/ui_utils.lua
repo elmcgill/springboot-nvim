@@ -83,7 +83,6 @@ local function draw_labeled_input(width, height, row, col, label, popup_buf, val
     table.insert(label_text, string.rep(" ", 12) .. input_border[1])
     table.insert(label_text, label .. string.rep(" ", (12 - string.len(label))) .. input_border[2])
     table.insert(label_text, string.rep(" ", 12) .. input_border[3])
-    print(width, height, row, col, label, popup_buf, value)
     -- Set the main popup window to have the label text and border
     api.nvim_buf_set_lines(popup_buf, row, col, false, label_text)
 
