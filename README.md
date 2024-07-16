@@ -25,7 +25,8 @@ return {
     "elmcgill/springboot-nvim",
     depedencies = {
         "neovim/nvim-lspconfig",
-        "mfussenegger/nvim-jdtls"
+        "mfussenegger/nvim-jdtls",
+        "nvim-tree/nvim-tree.lua",
     },
     config = function()
         local springboot_nvim = require("springboot-nvim")
@@ -53,6 +54,24 @@ return {
     end
 }
 ```
+
+## Creating a New Spring Boot Project
+
+To create a new Spring Boot project in Neovim, you can use the SpringBootNewProject command. This command leverages the functionality of the Neovim plugin to automatically generate a Spring Boot project by fetching it from https://start.spring.io.
+
+Here's what the SpringBootNewProject command does:
+
+    Fetch Project Metadata: The command sends a request to start.spring.io to retrieve the latest metadata for project configuration.
+    Generate Project: Based on the metadata and user-specified options, it generates a new Spring Boot project.
+    Download Project: The generated project is then downloaded and saved to your local system, ready for you to start coding.
+
+To use this feature, simply run the following command in Neovim:
+
+```vim
+:SpringBootNewProject
+```
+
+This will initiate the process of creating a new Spring Boot project tailored to your specifications.
 
 ## Contributing
 
