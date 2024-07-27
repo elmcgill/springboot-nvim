@@ -26,9 +26,6 @@ local function get_run_command(args)
 	local gradle_file = vim.fn.findfile("build.gradle", vim.fn.getcwd())
 
 	if maven_file then
-		if args == nil or args == {} then
-			args = ""
-		end
 		return string.format(':call jobsend(b:terminal_job_id, "mvn spring-boot:run %s \\n")', args)
 	elseif gradle_file then
 		return ':call jobsend(b:terminal_job_id, "gradle bootRun\\n")'
@@ -37,7 +34,7 @@ local function get_run_command(args)
 	end
 end
 
-local function boot_run()
+local function boot_run(args)
 	local project_root = get_spring_boot_project_root()
 
 	if project_root then
@@ -46,7 +43,7 @@ local function boot_run()
 		vim.cmd("norm G")
 		local cd_cmd = ':call jobsend(b:terminal_job_id, "cd ' .. project_root .. '\\n")'
 		vim.cmd(cd_cmd)
-		local run_cmd = get_run_command()
+		local run_cmd = get_run_command(args or '')
 		vim.cmd(run_cmd)
 		vim.cmd("wincmd k")
 	else
