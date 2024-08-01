@@ -1,6 +1,7 @@
 local lspconfig = require('lspconfig')
 
 local class_boiler_plate = "package %s;\n\npublic class %s{\n\n}"
+local record_boiler_plate = "package %s;\n\npublic record %s (\n\n){}"
 local interface_boiler_plate = "package %s;\n\npublic interface %s{\n\n}"
 local enum_boiler_plate = "package %s;\n\npublic enum %s{\n\n}"
 
@@ -61,6 +62,9 @@ local function generate_java_file(buf, type, package_buf, class_buf)
         local java_file_content
         if(type == 'class') then
             java_file_content = string.format(class_boiler_plate, package_import, class_text)
+        end
+        if(type == 'record') then
+            java_file_content = string.format(record_boiler_plate, package_import, class_text)
         end
         if(type == 'interface') then
             java_file_content = string.format(interface_boiler_plate, package_import, class_text)

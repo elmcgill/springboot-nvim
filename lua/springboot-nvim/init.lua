@@ -21,7 +21,6 @@ local function get_spring_boot_project_root()
 end
 
 local function get_run_command(args)
-	local current_file = vim.fn.expand("%:p")
 	local maven_file = vim.fn.findfile("pom.xml", vim.fn.getcwd())
 	local gradle_file = vim.fn.findfile("build.gradle", vim.fn.getcwd())
 
