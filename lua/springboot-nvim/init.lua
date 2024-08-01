@@ -143,6 +143,7 @@ return {
 	create_ui = generate_class.create_ui,
 	close_ui = springboot_nvim_ui.close_ui,
 	generate_class = springboot_nvim_ui.create_generate_class_ui,
+	generate_record = springboot_nvim_ui.create_generate_record_ui,
 	generate_interface = springboot_nvim_ui.create_generate_interface_ui,
 	generate_enum = springboot_nvim_ui.create_generate_enum_ui,
 }
