@@ -1,7 +1,7 @@
 local lspconfig = require('lspconfig')
 
 local class_boiler_plate = "package %s;\n\npublic class %s{\n\n}"
-local record_boiler_plate = "package %s;\n\npublic record %s (\n\n){}"
+local record_boiler_plate = "package %s;\n\npublic record %s(\n\n){}"
 local interface_boiler_plate = "package %s;\n\npublic interface %s{\n\n}"
 local enum_boiler_plate = "package %s;\n\npublic enum %s{\n\n}"
 
