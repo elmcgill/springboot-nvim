@@ -57,11 +57,11 @@ local function set_mappings(start_buf, bufs, type)
         api.nvim_buf_set_keymap(b, 'n', 'k', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_package()<cr>', {nowait=true, noremap=true, silent=true})
         if type == "class" then
             api.nvim_buf_set_keymap(b, 'n', 'j', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_class()<cr>', {nowait=true, noremap=true, silent=true})
-            api.nvim_buf_set_keymap(b, 'n', '<cr>', ':lua require("springboot-nvim.utils").generate_java_file(' .. start_buf .. ',"' .. type .. '","' .. bufs.package_buf.. '","' .. bufs.class_buf .. '")<cr>', {nowait=true, noremap=true, silent=true}) 
+            api.nvim_buf_set_keymap(b, 'n', '<cr>', ':lua require("springboot-nvim.utils").generate_java_file(' .. start_buf .. ',"' .. type .. '","' .. bufs.package_buf.. '","' .. bufs.class_buf .. '")<cr>', {nowait=true, noremap=true, silent=true})
         end
         if type == "record" then
             api.nvim_buf_set_keymap(b, 'n', 'j', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_record()<cr>', {nowait=true, noremap=true, silent=true})
-            api.nvim_buf_set_keymap(b, 'n', '<cr>', ':lua require("springboot-nvim.utils").generate_java_file(' .. start_buf .. ',"' .. type .. '","' .. bufs.package_buf.. '","' .. bufs.record_buf .. '")<cr>', {nowait=true, noremap=true, silent=true}) 
+            api.nvim_buf_set_keymap(b, 'n', '<cr>', ':lua require("springboot-nvim.tils").generate_java_file(' .. start_buf .. ',"' .. type .. '","' .. bufs.package_buf.. '","' .. bufs.record_buf .. '")<cr>', {nowait=true, noremap=true, silent=true})
         end
         if(type == "interface") then
             api.nvim_buf_set_keymap(b, 'n', 'j', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_interface()<cr>', {nowait=true, noremap=true, silent=true})
@@ -174,7 +174,7 @@ local function create_generate_record_ui()
             record_win = record_components.input_win
         }
     }
-    set_mappings(bufnr, components.bufs, 'class')
+    set_mappings(bufnr, components.bufs, 'record')
     local edit_package = string.rep(' ', 8) .. "Edit Package: <k>"
     local edit_class = "Edit Class: <j>" .. string.rep(' ', 8)
     local confirm_class = string.rep(' ', 8) .. "Confirm Record: <cr>"
