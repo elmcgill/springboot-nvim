@@ -61,7 +61,7 @@ local function set_mappings(start_buf, bufs, type)
         end
         if type == "record" then
             api.nvim_buf_set_keymap(b, 'n', 'j', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_record()<cr>', {nowait=true, noremap=true, silent=true})
-            api.nvim_buf_set_keymap(b, 'n', '<cr>', ':lua require("springboot-nvim.tils").generate_java_file(' .. start_buf .. ',"' .. type .. '","' .. bufs.package_buf.. '","' .. bufs.record_buf .. '")<cr>', {nowait=true, noremap=true, silent=true})
+            api.nvim_buf_set_keymap(b, 'n', '<cr>', ':lua require("springboot-nvim.utils").generate_java_file(' .. start_buf .. ',"' .. type .. '","' .. bufs.package_buf.. '","' .. bufs.record_buf .. '")<cr>', {nowait=true, noremap=true, silent=true})
         end
         if(type == "interface") then
             api.nvim_buf_set_keymap(b, 'n', 'j', ':lua require("springboot-nvim.ui.springboot_nvim_ui").navigate_to_interface()<cr>', {nowait=true, noremap=true, silent=true})
