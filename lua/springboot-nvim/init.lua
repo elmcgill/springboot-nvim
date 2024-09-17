@@ -1,5 +1,6 @@
 local generate_class = require("springboot-nvim.generateclass")
 local springboot_nvim_ui = require("springboot-nvim.ui.springboot_nvim_ui")
+local create_springboot_project = require("create_springboot_project")
 
 local lspconfig = require("lspconfig")
 local jdtls = require("jdtls")
