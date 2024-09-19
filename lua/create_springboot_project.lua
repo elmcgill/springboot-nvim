@@ -202,4 +202,3 @@ local function springboot_new_project()
 end
 
 vim.api.nvim_create_user_command("SpringBootNewProject", springboot_new_project, {})
-im.api.nvim_create_user_command("SpringNewProject", spring_new_project, {})
