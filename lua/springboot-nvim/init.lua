@@ -25,10 +25,10 @@ local function get_run_command(args)
 	local maven_file = vim.fn.findfile("pom.xml", vim.fn.getcwd())
 	local gradle_file = vim.fn.findfile("build.gradle", vim.fn.getcwd())
 
-	if maven_file then
-		return string.format(':call jobsend(b:terminal_job_id, "mvn spring-boot:run %s \\n")', args)
-	elseif gradle_file then
-		return ':call jobsend(b:terminal_job_id, "gradle bootRun\\n")'
+	if maven_file ~= "" then
+		return string.format(':call jobsend(b:terminal_job_id, "./mvnw spring-boot:run %s \\n")', args)
+	elseif gradle_file ~= "" then
+		return ':call jobsend(b:terminal_job_id, "./gradlew bootRun\\n")'
 	else
 		return "Unknown"
 	end
