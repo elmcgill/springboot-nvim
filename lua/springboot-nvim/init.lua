@@ -57,10 +57,19 @@ local function contains_package_info(file_path)
 		return false
 	end
 
-	local first_line = file:read("*l")
-	file:close()
+    local has_package_info = false
 
-	return first_line and first_line:find("package", 1, true) ~= nil
+    local line
+    repeat
+        line = file:read("*l")
+        if line and string.match(line, "^package") then
+            has_package_info = true
+            break
+        end
+    until not line
+
+    file:close()
+    return has_package_info
 end
 
 local function get_java_package(file_path)
