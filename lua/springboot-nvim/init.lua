@@ -56,10 +56,10 @@ local function contains_package_info(file_path)
 	if not file then
 		return false
 	end
-    local current_position = file:seek()
-    local file_size = file:seek("end")
-    file:seek("set", current_position)
-    file:close()
+	local current_position = file:seek()
+	local file_size = file:seek("end")
+	file:seek("set", current_position)
+	file:close()
 
 	return file_size > 0
 end
