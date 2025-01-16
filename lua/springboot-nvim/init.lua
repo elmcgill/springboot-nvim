@@ -16,20 +16,45 @@ end
 
 local function get_spring_boot_project_root()
 	local current_file = vim.fn.expand("%:p")
+	if current_file == "" then
+		print("No file is currently open.")
+		return nil
+	end
+
 	local root_pattern = { "pom.xml", "build.gradle", ".git" }
 
-	return lspconfig.util.root_pattern(unpack(root_pattern))(current_file)
+	local root_dir = lspconfig.util.root_pattern(unpack(root_pattern))(current_file)
+	if not root_dir then
+		print("Project root not found.")
+		return nil
+	end
+
+	return root_dir
 end
 
 local function get_run_command(args)
-	local maven_file = vim.fn.findfile("pom.xml", vim.fn.getcwd())
-	local gradle_file = vim.fn.findfile("build.gradle", vim.fn.getcwd())
+	local project_root = get_spring_boot_project_root()
+	if not project_root then
+		return "Unknown"
+	end
+
+	local maven_file = vim.fn.findfile("pom.xml", project_root)
+	local gradle_file = vim.fn.findfile("build.gradle", project_root)
 
 	if maven_file ~= "" then
-		return string.format(':call jobsend(b:terminal_job_id, "./mvnw spring-boot:run %s \\n")', args)
+		return string.format(
+			':call jobsend(b:terminal_job_id, "cd %s && mvn spring-boot:run %s \\n")',
+			project_root,
+			args or ""
+		)
 	elseif gradle_file ~= "" then
-		return ':call jobsend(b:terminal_job_id, "./gradlew bootRun\\n")'
+		return string.format(
+			':call jobsend(b:terminal_job_id, "cd %s && ./gradlew bootRun %s \\n")',
+			project_root,
+			args or ""
+		)
 	else
+		print("No build file (pom.xml or build.gradle) found in the project root.")
 		return "Unknown"
 	end
 end
