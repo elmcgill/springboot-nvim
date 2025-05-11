@@ -23,7 +23,7 @@ Basic installation requires nvim-lspconfig and nvim-jdtls to auto compile, and g
 ```lua
 return {
     "elmcgill/springboot-nvim",
-    depedencies = {
+    dependencies = {
         "neovim/nvim-lspconfig",
         "mfussenegger/nvim-jdtls",
         "nvim-tree/nvim-tree.lua",
@@ -40,7 +40,7 @@ Recommended installation and configuration
 ```lua
 return {
     "elmcgill/springboot-nvim",
-    depedencies = {
+    dependencies = {
         "neovim/nvim-lspconfig",
         "mfussenegger/nvim-jdtls"
     },
