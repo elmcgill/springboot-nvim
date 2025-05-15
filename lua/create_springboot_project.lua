@@ -122,6 +122,14 @@ local function get_packaging(data_available)
 	return packaging
 end
 
+local function is_nvim_tree_available()
+	local has_nvim_tree_cmd = vim.fn.exists(":NvimTreeFindFileToggle") == 2
+
+	local has_nvim_tree_module = pcall(require, "nvim-tree")
+
+	return has_nvim_tree_cmd or has_nvim_tree_module
+end
+
 local function springboot_new_project()
 	local request = safe_request("https://start.spring.io/metadata/client")
 
@@ -195,7 +203,9 @@ local function springboot_new_project()
 		local pathJava = vim.fn.system("fd -I java src/main/java")
 
 		vim.cmd("e " .. pathJava)
-		vim.cmd(":NvimTreeFindFileToggl<CR>")
+		if is_nvim_tree_available() then
+			vim.cmd("NvimTreeFindFileToggle")
+		end
 	end
 
 	print("Project created successfully!")
