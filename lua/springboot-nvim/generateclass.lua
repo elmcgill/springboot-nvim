@@ -9,8 +9,23 @@ local class_boiler_plate = "package %s;\n\npublic class %s{\n\n}"
 
 local function generate_class()
     local file_path = vim.fn.fnamemodify(start_buf, ':p')
-    local path_pattern = "(.-)/java"
-    local root_path = file_path:match(path_pattern) .. "/java"
+    -- Search the LAST occurrence of "/java/" in file_path
+    local last_java_idx = nil
+    local search_start = 1
+    while true do
+        local start_idx, end_idx = file_path:find("/java/", search_start)
+        if not end_idx then break end
+        last_java_idx = end_idx
+        search_start = start_idx + 1
+    end
+
+    if not last_java_idx then
+        -- Error to the console and abort
+        print("Could not find /java/ folder in path")
+        return
+    end
+    -- root_path will be like "/.../src/main/java"
+    local root_path = file_path:sub(1, last_java_idx - 1)
     -- Make sure there is content in the class buffer
     local class_lines = api.nvim_buf_get_lines(bufs[4], 0, -1, false)
     local class_content = table.concat(class_lines)
