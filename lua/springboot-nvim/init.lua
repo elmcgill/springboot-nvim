@@ -82,20 +82,12 @@ local function contains_package_info(file_path)
 	if not file then
 		return false
 	end
-
-	local has_package_info = false
-
-	local line
-	repeat
-		line = file:read("*l")
-		if line and string.match(line, "^package") then
-			has_package_info = true
-			break
-		end
-	until not line
-
+	local current_position = file:seek()
+	local file_size = file:seek("end")
+	file:seek("set", current_position)
 	file:close()
-	return has_package_info
+
+	return file_size > 0
 end
 
 local function get_java_package(file_path)
