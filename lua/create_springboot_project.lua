@@ -101,7 +101,7 @@ local function get_boot_version(data_available)
 	local version_available = list_to_string(data_available, false)
 	local options_err = list_to_string(data_available, true)
 
-	local boot_version = vim.fn.input("Enter Spring Boot Version (" .. version_available .. "): ", "3.3.1.RELEASE")
+	local boot_version = vim.fn.input("Enter Spring Boot Version (" .. version_available .. "): ", data_available[#data_available])
 	if not contains(data_available, boot_version) then
 		print("Invalid Spring Boot version. Please enter a valid version " .. options_err .. ".")
 		return ""
@@ -120,6 +120,14 @@ local function get_packaging(data_available)
 		return ""
 	end
 	return packaging
+end
+
+local function is_nvim_tree_available()
+	local has_nvim_tree_cmd = vim.fn.exists(":NvimTreeFindFileToggle") == 2
+
+	local has_nvim_tree_module = pcall(require, "nvim-tree")
+
+	return has_nvim_tree_cmd or has_nvim_tree_module
 end
 
 local function springboot_new_project()
@@ -195,7 +203,9 @@ local function springboot_new_project()
 		local pathJava = vim.fn.system("fd -I java src/main/java")
 
 		vim.cmd("e " .. pathJava)
-		vim.cmd(":NvimTreeFindFileToggl<CR>")
+		if is_nvim_tree_available() then
+			vim.cmd("NvimTreeFindFileToggle")
+		end
 	end
 
 	print("Project created successfully!")
