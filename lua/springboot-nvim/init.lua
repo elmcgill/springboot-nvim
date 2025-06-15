@@ -21,7 +21,7 @@ local function get_spring_boot_project_root()
 		return nil
 	end
 
-	local root_pattern = { "pom.xml", "build.gradle", ".git" }
+	local root_pattern = { "pom.xml", "build.gradle", "build.gradle.kts", ".git" }
 
 	local root_dir = lspconfig.util.root_pattern(unpack(root_pattern))(current_file)
 	if not root_dir then
@@ -40,6 +40,7 @@ local function get_run_command(args)
 
 	local maven_file = vim.fn.findfile("pom.xml", project_root)
 	local gradle_file = vim.fn.findfile("build.gradle", project_root)
+	local kts_gradle_file = vim.fn.findfile("build.gradle.kts", project_root)
 
 	if maven_file ~= "" then
 		return string.format(
@@ -47,7 +48,7 @@ local function get_run_command(args)
 			project_root,
 			args or ""
 		)
-	elseif gradle_file ~= "" then
+	elseif gradle_file or kts_gradle_file ~= "" then
 		return string.format(
 			':call jobsend(b:terminal_job_id, "cd %s && ./gradlew bootRun %s \\n")',
 			project_root,
@@ -82,19 +83,19 @@ local function contains_package_info(file_path)
 		return false
 	end
 
-    local has_package_info = false
+	local has_package_info = false
 
-    local line
-    repeat
-        line = file:read("*l")
-        if line and string.match(line, "^package") then
-            has_package_info = true
-            break
-        end
-    until not line
+	local line
+	repeat
+		line = file:read("*l")
+		if line and string.match(line, "^package") then
+			has_package_info = true
+			break
+		end
+	until not line
 
-    file:close()
-    return has_package_info
+	file:close()
+	return has_package_info
 end
 
 local function get_java_package(file_path)
