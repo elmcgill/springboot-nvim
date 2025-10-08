@@ -5,8 +5,10 @@ require("create_springboot_project")
 local lspconfig = require("lspconfig")
 local jdtls = require("jdtls")
 
+local on_compile_result = nil
+
 local function incremental_compile()
-	jdtls.compile("incremental")
+	jdtls.compile("incremental", on_compile_result)
 end
 
 local function is_plugin_installed(plugin)
@@ -130,7 +132,9 @@ end
 -- key mapping
 
 -- auto commands
-local function setup()
+local function setup(opts)
+	on_compile_result = opts.on_compile_result
+
 	vim.api.nvim_exec(
 		[[
     augroup JavaAutoCommands
